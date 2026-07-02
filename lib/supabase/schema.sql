@@ -90,6 +90,32 @@ create table if not exists subscriptions (
   created_at timestamptz not null default now()
 );
 
+-- "Add your facility" — for facilities not already in the directory
+-- (e.g. missed by the SAMHSA import, or new). Reviewed manually like
+-- claims, since this is user-submitted data rather than a public-source
+-- import. On approval, an admin creates the real facilities row and this
+-- becomes 'approved'.
+create table if not exists facility_submissions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  status text not null default 'pending', -- pending | approved | rejected
+  facility_name text not null,
+  city_name text not null,
+  address text not null,
+  zip text not null,
+  phone text not null,
+  website text,
+  description text,
+  treatment_types text[] not null default '{}',
+  insurance_types text[] not null default '{}',
+  submitter_name text not null,
+  submitter_role text not null,
+  submitter_email text not null,
+  submitter_phone text not null,
+  created_facility_id uuid references facilities(id), -- set once approved
+  created_at timestamptz not null default now()
+);
+
 create index if not exists idx_facilities_city on facilities(city_id);
 create index if not exists idx_facilities_featured on facilities(featured) where featured = true;
 create index if not exists idx_cities_state on cities(state_id);
@@ -148,3 +174,16 @@ create policy "Owners can manage their facility insurance types"
       and facilities.owner_id = auth.uid()
     )
   );
+
+alter table facility_submissions enable row level security;
+
+create policy "Users can submit a new facility"
+  on facility_submissions for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can view their own submissions"
+  on facility_submissions for select
+  using (auth.uid() = user_id);
+
+-- Admin approve/reject happens via the service role key and bypasses RLS,
+-- same as facility_claims.

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getFacilityBySlugAny } from "@/lib/data/facilities";
 import { createClient } from "@/lib/supabase/server";
-import { ShieldCheck, PlusCircle } from "lucide-react";
 import ClaimForm from "@/components/ClaimForm";
+import { ShieldCheck, PlusCircle } from "lucide-react";
 
 export const metadata = {
   title: "Claim Your Listing",

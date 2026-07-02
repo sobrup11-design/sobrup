@@ -1,6 +1,6 @@
 -- Run this AFTER schema.sql. Seeds California + the 8 sample facilities
 -- so the claim → approve → edit loop is testable against real data,
--- matching what's currently in lib/mock-data.ts.
+-- matching what is currently in lib/mock-data.ts.
 
 insert into states (name, slug) values ('California', 'california')
   on conflict (slug) do nothing;

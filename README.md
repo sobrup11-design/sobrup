@@ -24,6 +24,14 @@ and SEO-friendly facility profile pages, scoped to **California only** for now.
     address, ZIP, cover image, description, treatment types, insurance
     accepted). Enforced by Postgres RLS (`owner_id = auth.uid()`), not just
     app-level checks — so this is safe even if the UI is bypassed.
+- **Add-your-facility flow (for facilities missing from the directory):**
+  - `/add-facility` — public form, linked from `/browse` (both the empty-
+    results state and below normal results) and from the homepage search
+    area. Auth-gated like claiming.
+  - `/admin/submissions` — manual review queue, same gating as
+    `/admin/claims`. Approving creates the real `facilities` row (and the
+    `cities` row too, if it's a new city) and sets the submitter as owner
+    immediately — no separate claim step needed since they added it themselves.
 - **Pricing page (`/for-providers`)** — Free / Basic ($49.95) / Pro ($79.95)
   tiers, defined in `lib/pricing.ts` (single source of truth for both the
   page and, later, Stripe/PayPal product setup). No real billing yet — CTAs
@@ -36,6 +44,43 @@ and SEO-friendly facility profile pages, scoped to **California only** for now.
 - `lib/supabase/seed.sql` — seeds California + the same 8 sample facilities
   as the mock data, so the whole claim → approve → edit loop is testable
   against a real database
+- **`lib/supabase/seed-real-ca-facilities.sql`** — 1,520 real California
+  facilities imported from a SAMHSA FindTreatment.gov export, covering 356
+  cities. See "Real facility data" below for what's in it and what to
+  double-check before relying on it.
+
+## Real facility data
+
+`lib/supabase/seed-real-ca-facilities.sql` was generated from a SAMHSA
+export the user provided (5,215 raw rows). What happened to get from that
+file to this one:
+
+- **Filtered out HRSA rows** (3,007 of 5,215) — those are general federally
+  qualified community health centers, not addiction/mental health treatment
+  facilities, so they were out of scope. Kept SU (substance use), MH (mental
+  health), and OTP (opioid treatment program) rows — 2,208 total.
+- **Deduplicated** on normalized name + street + ZIP (518 exact duplicates
+  removed — the source file had the same facility repeated multiple times
+  in places).
+- **Dropped rows missing name, address, city, or phone** — 1,520 remain.
+- **Tagged treatment types and insurance** using only the CSV's clearly-
+  named columns (`mh`, `sa`, `res`, `op`/`iop`, `dt` + detox variants,
+  `adol`, `vet`/`admil`, `md`/`mc`/`pi`/`cash`). The export has ~250 other
+  abbreviated columns (medication names, diagnosis codes, accreditation
+  flags) that aren't documented anywhere accessible, so those were
+  deliberately left untagged rather than guessed at — better to under-tag
+  than risk misstating a real facility's services.
+- Not tagged at all from this import: **Luxury Rehab** and **Sober Living**
+  (no reliable source column) — those will only appear on facilities that
+  self-submit or get claimed and edited.
+
+**Before running this at scale, spot-check a sample of entries** against
+the facilities' actual websites — this is real health-adjacent data about
+real businesses, and it's worth a manual pass on at least a few dozen
+random rows before it's live.
+
+To run it: run `schema.sql`, then `seed.sql`, then this file, in that order,
+in the Supabase SQL editor.
 
 ## Not built yet (next slices)
 

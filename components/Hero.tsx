@@ -78,6 +78,10 @@ export default function Hero({ count }: { count: number }) {
           <span>Updated weekly</span>
           <span className="text-pine-400">·</span>
           <span>No cost to search</span>
+          <span className="text-pine-400">·</span>
+          <Link href="/add-facility" className="underline decoration-pine-400 underline-offset-2 hover:text-canvas">
+            Don't see your facility? Add it
+          </Link>
         </div>
       </div>
     </section>
