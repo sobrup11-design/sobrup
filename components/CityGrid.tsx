@@ -15,7 +15,7 @@ export default function CityGrid({ cities }: { cities: CitySummary[] }) {
         {cities.map((city) => (
           <Link
             key={city.slug}
-            href={`/${city.stateSlug}/${city.slug}`}
+            href={`/browse?q=${encodeURIComponent(city.name)}`}
             className="flex items-center justify-between rounded-xl border border-line bg-white px-4 py-3 text-sm font-medium text-ink hover:border-pine-300 hover:bg-pine-50 transition-colors"
           >
             <span>{city.name}</span>
