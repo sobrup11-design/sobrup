@@ -2,8 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getFacilityBySlugAny } from "@/lib/data/facilities";
 import { createClient } from "@/lib/supabase/server";
+import { ShieldCheck, PlusCircle } from "lucide-react";
 import ClaimForm from "@/components/ClaimForm";
-import { ShieldCheck } from "lucide-react";
 
 export const metadata = {
   title: "Claim Your Listing",
@@ -24,15 +24,24 @@ export default async function ClaimPage({
             Which listing would you like to claim?
           </h1>
           <p className="text-ink/60 mb-6">
-            Find your facility in the directory and click "Claim This Listing"
-            on its profile page.
+            Search for your facility and click "Claim This Listing" on its
+            profile page — or, if it's not listed yet, add it.
           </p>
-          <Link
-            href="/browse"
-            className="inline-flex rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
-          >
-            Browse listings
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/browse"
+              className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
+            >
+              Search listings
+            </Link>
+            <Link
+              href="/add-facility"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-line px-5 py-3 text-sm font-semibold text-ink hover:bg-mist"
+            >
+              <PlusCircle className="h-4 w-4" aria-hidden="true" />
+              Add your facility
+            </Link>
+          </div>
         </div>
       </div>
     );
