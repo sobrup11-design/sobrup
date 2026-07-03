@@ -43,7 +43,7 @@ export default function CategoryGrid() {
         {categories.map(({ name, type, icon: Icon }) => (
           <Link
             key={type}
-            href={`/browse?type=${encodeURIComponent(type)}`}
+            href="/browse"
             className="group flex flex-col items-start gap-3 rounded-2xl border border-line bg-white p-5 transition-all hover:border-pine-300 hover:shadow-md"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pine-50 text-pine-600 group-hover:bg-pine-100">

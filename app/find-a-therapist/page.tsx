@@ -18,6 +18,41 @@ export default async function FindTherapistPage({
   const specialty = params.specialty?.trim() ?? "";
   const hasSearch = Boolean(q || specialty);
 
+  if (!hasSearch) {
+    return (
+      <div className="container-page py-20">
+        <div className="mx-auto max-w-md text-center">
+          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-pine-50 text-pine-600 mb-4">
+            <Search className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <h1 className="font-display text-2xl font-medium text-ink mb-2">
+            Search to find a therapist
+          </h1>
+          <p className="text-ink/60 mb-6">
+            Try a name, city, or specialty like "anxiety" or "couples therapy."
+          </p>
+          <form action="/find-a-therapist" className="flex gap-2 mb-6">
+            <input
+              type="text"
+              name="q"
+              placeholder="Name, city, or specialty"
+              className="flex-1 rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-pine-400"
+            />
+            <button
+              type="submit"
+              className="rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
+            >
+              Search
+            </button>
+          </form>
+          <Link href="/" className="text-sm font-semibold text-pine-600 hover:text-pine-700">
+            Back to home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const therapists = await getAllTherapists();
 
   const results = therapists
@@ -33,11 +68,7 @@ export default async function FindTherapistPage({
     })
     .sort((a, b) => Number(b.isPremium) - Number(a.isPremium));
 
-  const heading = specialty
-    ? specialty
-    : q
-      ? `Results for "${params.q}"`
-      : "Therapists in California";
+  const heading = specialty ? specialty : q ? `Results for "${params.q}"` : "Therapists";
 
   return (
     <div className="container-page py-12">
@@ -45,33 +76,14 @@ export default async function FindTherapistPage({
         California
       </p>
       <h1 className="font-display text-3xl font-medium text-ink mb-2">{heading}</h1>
-      <p className="text-ink/60 mb-6">
+      <p className="text-ink/60 mb-8">
         {results.length} {results.length === 1 ? "therapist" : "therapists"} found
       </p>
-
-      <form action="/find-a-therapist" className="flex gap-2 mb-10 max-w-lg">
-        <div className="flex flex-1 items-center gap-2 rounded-xl border border-line bg-white px-4">
-          <Search className="h-4 w-4 shrink-0 text-ink/40" aria-hidden="true" />
-          <input
-            type="text"
-            name="q"
-            defaultValue={params.q ?? ""}
-            placeholder="Name, city, or specialty"
-            className="w-full bg-transparent py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none"
-          />
-        </div>
-        <button
-          type="submit"
-          className="rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
-        >
-          Search
-        </button>
-      </form>
 
       {results.length === 0 ? (
         <div className="rounded-2xl border border-line bg-mist p-10 text-center">
           <p className="text-ink/70 mb-4">
-            {hasSearch ? "No therapists match that search yet." : "No therapists listed yet — be the first."}
+            No therapists match that search yet.
           </p>
           <Link
             href="/list-your-practice"

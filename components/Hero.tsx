@@ -2,9 +2,9 @@ import Link from "next/link";
 import SearchBar from "./SearchBar";
 
 const QUICK_LINKS = [
-  { label: "Rehabs", href: "/browse?q=rehab" },
-  { label: "Detox", href: "/browse?type=Detox" },
-  { label: "Sober Living", href: `/browse?type=${encodeURIComponent("Sober Living")}` },
+  { label: "Rehabs", href: "/browse" },
+  { label: "Detox", href: "/browse" },
+  { label: "Sober Living", href: "/browse" },
   { label: "Find a Therapist", href: "/find-a-therapist" },
 ];
 
