@@ -34,7 +34,7 @@ export const FREE_PLAN_FEATURES = [
 export const THERAPIST_PLAN: Plan = {
   id: "premium",
   name: "Premium",
-  price: 25,
+  price: 29.95,
   tagline: "Unlock your full profile and show up first in search.",
   features: [
     "Verified badge",

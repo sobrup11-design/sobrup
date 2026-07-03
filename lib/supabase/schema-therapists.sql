@@ -107,7 +107,7 @@ create table if not exists therapist_submissions (
 create table if not exists therapist_subscriptions (
   id uuid primary key default gen_random_uuid(),
   therapist_id uuid not null references therapists(id) on delete cascade,
-  plan text not null default 'premium', -- $25/year tier, lib/pricing.ts
+  plan text not null default 'premium', -- $29.95/year tier, lib/pricing.ts
   payment_provider text not null default 'stripe',
   stripe_customer_id text,
   stripe_subscription_id text,

@@ -80,7 +80,7 @@ export const THERAPIST_FAQS: FaqItem[] = [
   {
     question: "What does Premium actually pay for?",
     answer:
-      "A complete, visible profile — your bio, photo, website, specialties, and insurance shown publicly, plus a verified badge and featured placement in search. A flat $25/year, not a pay-per-inquiry service.",
+      "A complete, visible profile — your bio, photo, website, specialties, and insurance shown publicly, plus a verified badge and featured placement in search. A flat $29.95/year, not a pay-per-inquiry service.",
   },
   {
     question: "What can I edit once I'm approved?",

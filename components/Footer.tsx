@@ -14,7 +14,7 @@ const columns = [
   {
     title: "Browse",
     links: [
-      { label: "By State", href: "/states" },
+      { label: "By City", href: "/cities" },
       { label: "Featured Facilities", href: "/browse?featured=true" },
       { label: "Resources & Blog", href: "/blog" },
     ],

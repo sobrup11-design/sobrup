@@ -76,6 +76,13 @@ export default function ForTherapistsPage() {
         Premium upgrade once billing is live.
       </p>
 
+      <p className="mt-4 text-sm text-ink/60 max-w-2xl">
+        Run a facility instead of an individual practice?{" "}
+        <Link href="/for-providers" className="font-semibold text-pine-600 hover:text-pine-700">
+          See facility pricing →
+        </Link>
+      </p>
+
       <FaqSection items={THERAPIST_FAQS} />
     </div>
   );

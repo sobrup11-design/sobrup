@@ -17,14 +17,17 @@ export default function Navbar() {
           <Link href="/find-a-therapist" className="hover:text-pine-600 transition-colors">
             Find a Therapist
           </Link>
-          <Link href="/states" className="hover:text-pine-600 transition-colors">
-            By State
+          <Link href="/cities" className="hover:text-pine-600 transition-colors">
+            By City
           </Link>
           <Link href="/blog" className="hover:text-pine-600 transition-colors">
             Resources
           </Link>
           <Link href="/for-providers" className="hover:text-pine-600 transition-colors">
             For Providers
+          </Link>
+          <Link href="/for-therapists" className="hover:text-pine-600 transition-colors">
+            For Therapists
           </Link>
         </nav>
 
