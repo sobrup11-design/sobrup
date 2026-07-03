@@ -31,15 +31,22 @@ export default async function BrowsePage({
             Search to see treatment facilities
           </h1>
           <p className="text-ink/60 mb-6">
-            Try a facility name, city, ZIP code, or treatment type — or use
-            one of the quick links on the homepage.
+            Try a facility name, city, ZIP code, or treatment type.
           </p>
-          <Link
-            href="/"
-            className="inline-flex rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
-          >
-            Back to search
-          </Link>
+          <form action="/browse" className="flex gap-2">
+            <input
+              type="text"
+              name="q"
+              placeholder="Facility name, city, or ZIP code"
+              className="flex-1 rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-pine-400"
+            />
+            <button
+              type="submit"
+              className="rounded-xl bg-pine-600 px-5 py-3 text-sm font-semibold text-white hover:bg-pine-700"
+            >
+              Search
+            </button>
+          </form>
         </div>
       </div>
     );

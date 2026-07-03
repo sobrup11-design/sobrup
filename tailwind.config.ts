@@ -11,22 +11,22 @@ const config: Config = {
         canvas: "#FAFAF7",     // warm paper background
         ink: "#17241F",        // near-black deep pine, primary text
         pine: {
-          50: "#EEF3EF",
-          100: "#D9E5DD",
-          200: "#B3CCBB",
-          300: "#8CB299",
-          400: "#5C9276",
-          500: "#2F6F5A",      // primary brand
-          600: "#255A49",
-          700: "#1D4739",
-          800: "#15352A",
-          900: "#0E241C",
+          50: "#EAF7F0",
+          100: "#CDEEDD",
+          200: "#9EDDC0",
+          300: "#68C69E",
+          400: "#3EAD82",
+          500: "#1E9468",      // primary brand — brighter, fresher green
+          600: "#17795B",
+          700: "#146143",
+          800: "#124D37",      // hero background — lighter/friendlier than before
+          900: "#0F3A2A",
         },
         gold: {
-          100: "#F6E9CC",
-          300: "#E8C787",
-          500: "#C99A3D",      // accent, used sparingly (CTAs, badges)
-          600: "#A87C2A",
+          100: "#FFF0CC",
+          300: "#FFD980",
+          500: "#F5B942",      // accent — warmer, more golden-yellow
+          600: "#DB9F27",
         },
         mist: "#EFF3EF",       // soft card background
         line: "#DEE5DE",       // hairline borders
