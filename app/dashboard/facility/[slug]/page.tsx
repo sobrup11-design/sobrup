@@ -33,11 +33,7 @@ export default async function EditFacilityPage({
 
   const { data: facility, error } = await supabase
     .from("facilities")
-    .select(
-      `id, slug, name, description, phone, website, address, zip, image_url, owner_id,
-       facility_treatment_types ( treatment_types ( name ) ),
-       facility_insurance_types ( insurance_types ( name ) )`
-    )
+    .select("id, slug, name, description, phone, website, address, zip, image_url, owner_id, is_premium")
     .eq("slug", slug)
     .single();
 
@@ -51,11 +47,22 @@ export default async function EditFacilityPage({
     );
   }
 
-  const selectedTreatmentTypes = (facility.facility_treatment_types ?? [])
-    .map((t: any) => t.treatment_types?.name)
+  const [{ data: ttRows }, { data: itRows }] = await Promise.all([
+    supabase
+      .from("facility_treatment_types")
+      .select("treatment_types(name)")
+      .eq("facility_id", facility.id),
+    supabase
+      .from("facility_insurance_types")
+      .select("insurance_types(name)")
+      .eq("facility_id", facility.id),
+  ]);
+
+  const selectedTreatmentTypes = (ttRows ?? [])
+    .map((r: any) => r.treatment_types?.name)
     .filter(Boolean);
-  const selectedInsuranceTypes = (facility.facility_insurance_types ?? [])
-    .map((i: any) => i.insurance_types?.name)
+  const selectedInsuranceTypes = (itRows ?? [])
+    .map((r: any) => r.insurance_types?.name)
     .filter(Boolean);
 
   return (
@@ -70,6 +77,7 @@ export default async function EditFacilityPage({
       <EditFacilityForm
         facilityId={facility.id}
         facilitySlug={facility.slug}
+        isPremium={Boolean(facility.is_premium)}
         initial={{
           description: facility.description ?? "",
           phone: facility.phone ?? "",

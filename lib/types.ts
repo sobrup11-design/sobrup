@@ -57,6 +57,7 @@ export interface Facility {
   verified: boolean;
   featured: boolean;
   claimed: boolean;
+  isPremium: boolean;
   imageUrl: string;
   logoUrl?: string;
   lat?: number;
@@ -67,4 +68,60 @@ export interface StateSummary {
   name: string;
   slug: string;
   facilityCount: number;
+}
+
+export type Specialty =
+  | "Anxiety"
+  | "Depression"
+  | "Trauma & PTSD"
+  | "Addiction"
+  | "Couples Therapy"
+  | "Family Therapy"
+  | "Grief & Loss"
+  | "Teens & Adolescents"
+  | "LGBTQ+"
+  | "Eating Disorders"
+  | "OCD"
+  | "Bipolar Disorder";
+
+export const SPECIALTIES: Specialty[] = [
+  "Anxiety",
+  "Depression",
+  "Trauma & PTSD",
+  "Addiction",
+  "Couples Therapy",
+  "Family Therapy",
+  "Grief & Loss",
+  "Teens & Adolescents",
+  "LGBTQ+",
+  "Eating Disorders",
+  "OCD",
+  "Bipolar Disorder",
+];
+
+export interface Therapist {
+  slug: string;
+  name: string;
+  state: string;
+  stateSlug: string;
+  city: string;
+  citySlug: string;
+  address?: string;
+  zip?: string;
+  phone: string;
+  email: string;
+  website?: string;
+  bio: string;
+  licenseType: string;
+  licenseNumber?: string;
+  photoUrl?: string;
+  inPerson: boolean;
+  telehealth: boolean;
+  acceptingNewClients: boolean;
+  specialties: Specialty[];
+  insuranceAccepted: InsuranceType[];
+  verified: boolean;
+  featured: boolean;
+  claimed: boolean;
+  isPremium: boolean;
 }

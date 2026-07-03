@@ -12,26 +12,43 @@ export const PREMIUM_PLAN: Plan = {
   id: "premium",
   name: "Premium",
   price: 95,
-  tagline: "Everything you need to stand out and stay accurate.",
+  tagline: "Unlock your full profile and show up first in search.",
   features: [
     "Verified badge",
     "Featured placement across the site",
-    "Priority search placement",
+    "Priority placement in search results",
+    "Website link shown",
+    "Full description shown",
+    "Cover photo shown",
+    "Treatment types & insurance shown on profile",
     "Unlimited profile edits",
-    "Up to 30 photos, plus video",
-    "Logo upload",
-    "Staff profiles",
-    "Insurance & amenities details",
-    "Lead contact form",
-    "Appointment request form",
-    "Analytics dashboard",
   ],
 };
 
 export const FREE_PLAN_FEATURES = [
-  "Facility name, address & phone",
-  "Website link",
-  "Google map",
-  "Basic description",
-  "Treatment types & insurance accepted",
+  "Facility name",
+  "Address",
+  "Phone number",
+];
+
+export const THERAPIST_PLAN: Plan = {
+  id: "premium",
+  name: "Premium",
+  price: 25,
+  tagline: "Unlock your full profile and show up first in search.",
+  features: [
+    "Verified badge",
+    "Featured placement in search",
+    "Website link shown",
+    "Bio shown",
+    "Photo shown",
+    "Specialties & insurance shown on profile",
+    "Unlimited profile edits",
+  ],
+};
+
+export const THERAPIST_FREE_FEATURES = [
+  "Name & license type",
+  "Phone number",
+  "City (if in-person)",
 ];

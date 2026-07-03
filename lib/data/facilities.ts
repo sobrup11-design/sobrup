@@ -81,6 +81,8 @@ function mapRow(row: any, lookups: Lookups): Facility {
     .map((id) => lookups.insuranceTypesById.get(id))
     .filter(Boolean) as InsuranceType[];
 
+  const isPremium = Boolean(row.is_premium);
+
   return {
     slug: row.slug,
     name: row.name,
@@ -91,20 +93,26 @@ function mapRow(row: any, lookups: Lookups): Facility {
     address: row.address,
     zip: row.zip,
     phone: row.phone ?? "",
-    website: row.website ?? undefined,
-    description: row.description ?? "",
+    // Free listings show name/address/phone only — website, description,
+    // and a real photo are Premium features. Treatment types/insurance
+    // stay attached regardless (search/category browsing depends on this
+    // data existing), but profile/card components only display them for
+    // Premium listings.
+    website: isPremium ? (row.website ?? undefined) : undefined,
+    description: isPremium ? (row.description ?? "") : "",
     treatmentTypes,
     insuranceAccepted,
     verified: row.verified,
     featured: row.featured,
     claimed: row.claimed,
-    imageUrl: row.image_url ?? FALLBACK_IMAGE,
-    logoUrl: row.logo_url ?? undefined,
+    isPremium,
+    imageUrl: isPremium ? (row.image_url ?? FALLBACK_IMAGE) : FALLBACK_IMAGE,
+    logoUrl: isPremium ? (row.logo_url ?? undefined) : undefined,
   };
 }
 
 const FACILITY_COLUMNS =
-  "id, slug, name, address, zip, phone, website, description, image_url, logo_url, verified, featured, claimed, owner_id, city_id";
+  "id, slug, name, address, zip, phone, website, description, image_url, logo_url, verified, featured, claimed, owner_id, city_id, is_premium";
 
 export async function getAllFacilities(): Promise<Facility[]> {
   const supabase = await createClient();

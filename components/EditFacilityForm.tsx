@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, Lock } from "lucide-react";
 import { updateFacility } from "@/lib/actions/facility";
 import { TREATMENT_TYPES, INSURANCE_TYPES } from "@/lib/types";
 
@@ -19,10 +20,12 @@ interface Initial {
 export default function EditFacilityForm({
   facilityId,
   facilitySlug,
+  isPremium,
   initial,
 }: {
   facilityId: string;
   facilitySlug: string;
+  isPremium: boolean;
   initial: Initial;
 }) {
   const [isPending, startTransition] = useTransition();
@@ -52,29 +55,63 @@ export default function EditFacilityForm({
 
       <section className="space-y-4">
         <h2 className="font-display text-lg font-medium text-ink">Basics</h2>
+        <p className="text-xs text-ink/50">Free on every listing.</p>
 
         <Field id="phone" label="Phone number" type="tel" defaultValue={initial.phone} />
-        <Field id="website" label="Website" type="url" defaultValue={initial.website} />
         <Field id="address" label="Street address" defaultValue={initial.address} />
         <Field id="zip" label="ZIP code" defaultValue={initial.zip} />
-        <Field id="imageUrl" label="Cover image URL" defaultValue={initial.imageUrl} />
-
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-ink mb-1.5">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            rows={5}
-            defaultValue={initial.description}
-            className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-pine-400"
-          />
-        </div>
       </section>
+
+      {isPremium ? (
+        <section className="space-y-4">
+          <h2 className="font-display text-lg font-medium text-ink">Premium details</h2>
+          <Field id="website" label="Website" type="url" defaultValue={initial.website} />
+          <Field id="imageUrl" label="Cover image URL" defaultValue={initial.imageUrl} />
+          <div>
+            <label htmlFor="description" className="block text-sm font-medium text-ink mb-1.5">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows={5}
+              defaultValue={initial.description}
+              className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-pine-400"
+            />
+          </div>
+        </section>
+      ) : (
+        <section className="rounded-2xl border border-dashed border-line bg-mist p-6">
+          <div className="flex items-start gap-3">
+            <Lock className="h-5 w-5 shrink-0 text-ink/40 mt-0.5" aria-hidden="true" />
+            <div>
+              <p className="text-sm font-semibold text-ink">Website, photo & description</p>
+              <p className="mt-1 text-sm text-ink/60">
+                Available with Premium ($95/year). Treatment types and
+                insurance are still saved below and used for search, even on
+                the free plan — they just aren't shown on your public
+                profile until you upgrade.
+              </p>
+              <Link
+                href="/for-providers"
+                className="mt-3 inline-flex text-sm font-semibold text-pine-600 hover:text-pine-700"
+              >
+                Upgrade to Premium →
+              </Link>
+            </div>
+          </div>
+          {/* Hidden fields preserve existing values on save, in case they were set before a downgrade */}
+          <input type="hidden" name="website" value={initial.website} />
+          <input type="hidden" name="imageUrl" value={initial.imageUrl} />
+          <input type="hidden" name="description" value={initial.description} />
+        </section>
+      )}
 
       <section className="space-y-3">
         <h2 className="font-display text-lg font-medium text-ink">Treatment types</h2>
+        <p className="text-xs text-ink/50">
+          Used for search on every plan — only shown on your public profile with Premium.
+        </p>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
           {TREATMENT_TYPES.map((t) => (
             <label key={t} className="flex items-center gap-2 rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink/80">

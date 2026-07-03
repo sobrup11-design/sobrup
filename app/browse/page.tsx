@@ -47,17 +47,21 @@ export default async function BrowsePage({
 
   const facilities = await getAllFacilities();
 
-  const results = facilities.filter((f) => {
-    if (featuredOnly && !f.featured) return false;
-    if (type && !f.treatmentTypes.some((t) => t.toLowerCase() === type.toLowerCase())) return false;
-    if (!q) return true;
-    return (
-      f.name.toLowerCase().includes(q) ||
-      f.city.toLowerCase().includes(q) ||
-      f.zip.includes(q) ||
-      f.treatmentTypes.some((t) => t.toLowerCase().includes(q))
-    );
-  });
+  const results = facilities
+    .filter((f) => {
+      if (featuredOnly && !f.featured) return false;
+      if (type && !f.treatmentTypes.some((t) => t.toLowerCase() === type.toLowerCase())) return false;
+      if (!q) return true;
+      return (
+        f.name.toLowerCase().includes(q) ||
+        f.city.toLowerCase().includes(q) ||
+        f.zip.includes(q) ||
+        f.treatmentTypes.some((t) => t.toLowerCase().includes(q))
+      );
+    })
+    // Premium listings get priority placement — everything else stays in
+    // whatever order it came in otherwise.
+    .sort((a, b) => Number(b.isPremium) - Number(a.isPremium));
 
   const heading = type
     ? type

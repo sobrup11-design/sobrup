@@ -5,7 +5,7 @@ const QUICK_LINKS = [
   { label: "Rehabs", href: "/browse?q=rehab" },
   { label: "Detox", href: "/browse?type=Detox" },
   { label: "Sober Living", href: `/browse?type=${encodeURIComponent("Sober Living")}` },
-  { label: "Find a Therapist", href: `/browse?type=${encodeURIComponent("Mental Health")}` },
+  { label: "Find a Therapist", href: "/find-a-therapist" },
 ];
 
 export default function Hero({ count }: { count: number }) {

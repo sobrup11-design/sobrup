@@ -14,6 +14,9 @@ export default function Navbar() {
           <Link href="/browse" className="hover:text-pine-600 transition-colors">
             Browse Treatment
           </Link>
+          <Link href="/find-a-therapist" className="hover:text-pine-600 transition-colors">
+            Find a Therapist
+          </Link>
           <Link href="/states" className="hover:text-pine-600 transition-colors">
             By State
           </Link>
@@ -33,7 +36,7 @@ export default function Navbar() {
             Sign In
           </Link>
           <Link
-            href="/claim"
+            href="/for-providers"
             className="inline-flex items-center rounded-full bg-pine-600 px-4 py-2 text-sm font-semibold text-white hover:bg-pine-700 transition-colors"
           >
             Claim Your Listing

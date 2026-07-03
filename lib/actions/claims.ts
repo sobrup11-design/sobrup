@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { sendAdminNotification } from "@/lib/email";
 
 export interface SubmitClaimResult {
   ok: boolean;
@@ -42,7 +43,7 @@ export async function submitClaim(formData: FormData): Promise<SubmitClaimResult
   // then record the claim with everything an admin needs to verify by hand.
   const { data: facility, error: facilityError } = await supabase
     .from("facilities")
-    .select("id")
+    .select("id, name")
     .eq("slug", facilitySlug)
     .single();
 
@@ -71,6 +72,11 @@ export async function submitClaim(formData: FormData): Promise<SubmitClaimResult
   if (insertError) {
     return { ok: false, message: "Something went wrong submitting your claim. Please try again." };
   }
+
+  await sendAdminNotification(
+    `New claim: ${facility.name}`,
+    `${fullName} (${role}) submitted a claim for "${facility.name}".\n\nContact: ${workEmail} / ${phone}${planId ? `\nRequested plan: ${planId}` : ""}\n\nReview it at /admin/claims`
+  );
 
   return {
     ok: true,

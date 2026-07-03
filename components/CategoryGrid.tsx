@@ -13,16 +13,16 @@ import {
 } from "lucide-react";
 
 const categories = [
-  { name: "Drug Rehab", slug: "drug-rehab", icon: Pill },
-  { name: "Alcohol Rehab", slug: "alcohol-rehab", icon: Wine },
-  { name: "Detox Centers", slug: "detox", icon: Waves },
-  { name: "Mental Health", slug: "mental-health", icon: Brain },
-  { name: "Residential Treatment", slug: "residential-treatment", icon: Home },
-  { name: "Outpatient Programs", slug: "outpatient", icon: Clock },
-  { name: "Dual Diagnosis", slug: "dual-diagnosis", icon: Layers },
-  { name: "Teen Treatment", slug: "teen-treatment", icon: Users },
-  { name: "Veterans Programs", slug: "veterans-programs", icon: Shield },
-  { name: "Luxury Rehab", slug: "luxury-rehab", icon: Gem },
+  { name: "Drug Rehab", type: "Drug Rehab", icon: Pill },
+  { name: "Alcohol Rehab", type: "Alcohol Rehab", icon: Wine },
+  { name: "Detox Centers", type: "Detox", icon: Waves },
+  { name: "Mental Health", type: "Mental Health", icon: Brain },
+  { name: "Residential Treatment", type: "Residential Treatment", icon: Home },
+  { name: "Outpatient Programs", type: "Outpatient", icon: Clock },
+  { name: "Dual Diagnosis", type: "Dual Diagnosis", icon: Layers },
+  { name: "Teen Treatment", type: "Teen Treatment", icon: Users },
+  { name: "Veterans Programs", type: "Veterans Programs", icon: Shield },
+  { name: "Luxury Rehab", type: "Luxury Rehab", icon: Gem },
 ];
 
 export default function CategoryGrid() {
@@ -40,10 +40,10 @@ export default function CategoryGrid() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {categories.map(({ name, slug, icon: Icon }) => (
+        {categories.map(({ name, type, icon: Icon }) => (
           <Link
-            key={slug}
-            href={`/browse/${slug}`}
+            key={type}
+            href={`/browse?type=${encodeURIComponent(type)}`}
             className="group flex flex-col items-start gap-3 rounded-2xl border border-line bg-white p-5 transition-all hover:border-pine-300 hover:shadow-md"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pine-50 text-pine-600 group-hover:bg-pine-100">

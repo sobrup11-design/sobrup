@@ -37,19 +37,33 @@ export async function updateFacility(formData: FormData): Promise<UpdateFacility
     return { ok: false, message: "Missing listing reference." };
   }
 
+  // Server-side enforcement (not just UI): free listings can't set
+  // website/description/photo, regardless of what the form submits.
+  const { data: existing } = await supabase
+    .from("facilities")
+    .select("is_premium")
+    .eq("id", facilityId)
+    .single();
+
+  const isPremium = Boolean(existing?.is_premium);
+
   // RLS ("Owners can update their claimed facility") enforces that this
   // only succeeds if facilities.owner_id = the signed-in user's id.
+  const updatePayload: Record<string, unknown> = {
+    phone,
+    address,
+    zip,
+    updated_at: new Date().toISOString(),
+  };
+  if (isPremium) {
+    updatePayload.description = description;
+    updatePayload.website = website || null;
+    updatePayload.image_url = imageUrl || null;
+  }
+
   const { error: updateError } = await supabase
     .from("facilities")
-    .update({
-      description,
-      phone,
-      website: website || null,
-      address,
-      zip,
-      image_url: imageUrl || null,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updatePayload)
     .eq("id", facilityId);
 
   if (updateError) {

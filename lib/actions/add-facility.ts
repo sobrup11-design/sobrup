@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { sendAdminNotification } from "@/lib/email";
 
 export interface SubmitFacilityResult {
   ok: boolean;
@@ -67,6 +68,11 @@ export async function submitFacility(formData: FormData): Promise<SubmitFacility
   if (error) {
     return { ok: false, message: "Something went wrong submitting this. Please try again." };
   }
+
+  await sendAdminNotification(
+    `New facility submission: ${facilityName}`,
+    `${submitterName} (${submitterRole}) submitted a new facility: "${facilityName}" in ${cityName}.\n\nContact: ${submitterEmail} / ${submitterPhone}\n\nReview it at /admin/submissions`
+  );
 
   return {
     ok: true,

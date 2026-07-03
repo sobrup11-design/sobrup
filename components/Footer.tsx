@@ -4,10 +4,11 @@ const columns = [
   {
     title: "Find Treatment",
     links: [
-      { label: "Drug Rehab", href: "/browse/drug-rehab" },
-      { label: "Alcohol Rehab", href: "/browse/alcohol-rehab" },
-      { label: "Detox Centers", href: "/browse/detox" },
-      { label: "Mental Health", href: "/browse/mental-health" },
+      { label: "Drug Rehab", href: "/browse?type=Drug%20Rehab" },
+      { label: "Alcohol Rehab", href: "/browse?type=Alcohol%20Rehab" },
+      { label: "Detox Centers", href: "/browse?type=Detox" },
+      { label: "Mental Health", href: "/browse?type=Mental%20Health" },
+      { label: "Find a Therapist", href: "/find-a-therapist" },
     ],
   },
   {
@@ -21,8 +22,9 @@ const columns = [
   {
     title: "Providers",
     links: [
-      { label: "Claim Your Listing", href: "/claim" },
+      { label: "Claim Your Listing", href: "/for-providers" },
       { label: "Premium Membership", href: "/for-providers" },
+      { label: "List Your Practice", href: "/for-therapists" },
       { label: "Provider Sign In", href: "/sign-in" },
     ],
   },

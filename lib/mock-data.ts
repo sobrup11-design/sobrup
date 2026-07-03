@@ -23,6 +23,7 @@ export const facilities: Facility[] = [
     verified: true,
     featured: true,
     claimed: true,
+    isPremium: true,
     imageUrl:
       "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80",
   },
@@ -43,6 +44,7 @@ export const facilities: Facility[] = [
     verified: false,
     featured: false,
     claimed: false,
+    isPremium: false,
     imageUrl:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80",
   },
@@ -64,6 +66,7 @@ export const facilities: Facility[] = [
     verified: true,
     featured: true,
     claimed: true,
+    isPremium: true,
     imageUrl:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
   },
@@ -85,6 +88,7 @@ export const facilities: Facility[] = [
     verified: true,
     featured: true,
     claimed: true,
+    isPremium: true,
     imageUrl:
       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80",
   },
@@ -105,6 +109,7 @@ export const facilities: Facility[] = [
     verified: true,
     featured: false,
     claimed: true,
+    isPremium: false,
     imageUrl:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80",
   },
@@ -126,6 +131,7 @@ export const facilities: Facility[] = [
     verified: true,
     featured: true,
     claimed: true,
+    isPremium: true,
     imageUrl:
       "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=80",
   },
@@ -146,6 +152,7 @@ export const facilities: Facility[] = [
     verified: false,
     featured: false,
     claimed: false,
+    isPremium: false,
     imageUrl:
       "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1200&q=80",
   },
@@ -166,6 +173,7 @@ export const facilities: Facility[] = [
     verified: false,
     featured: false,
     claimed: false,
+    isPremium: false,
     imageUrl:
       "https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1200&q=80",
   },

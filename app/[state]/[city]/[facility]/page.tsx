@@ -119,27 +119,39 @@ export default async function FacilityPage({
               {facility.address}, {facility.city}, {facility.state} {facility.zip}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {facility.treatmentTypes.map((t) => (
-                <span key={t} className="rounded-full bg-mist px-3 py-1.5 text-sm font-medium text-ink/80">
-                  {t}
-                </span>
-              ))}
-            </div>
+            {facility.isPremium ? (
+              <>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {facility.treatmentTypes.map((t) => (
+                    <span key={t} className="rounded-full bg-mist px-3 py-1.5 text-sm font-medium text-ink/80">
+                      {t}
+                    </span>
+                  ))}
+                </div>
 
-            <h2 className="mt-10 font-display text-xl font-medium text-ink">About</h2>
-            <p className="mt-3 text-ink/75 leading-relaxed max-w-2xl">
-              {facility.description}
-            </p>
+                <h2 className="mt-10 font-display text-xl font-medium text-ink">About</h2>
+                <p className="mt-3 text-ink/75 leading-relaxed max-w-2xl">
+                  {facility.description}
+                </p>
 
-            <h2 className="mt-10 font-display text-xl font-medium text-ink">Insurance accepted</h2>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {facility.insuranceAccepted.map((i) => (
-                <li key={i} className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink/70">
-                  {i}
-                </li>
-              ))}
-            </ul>
+                <h2 className="mt-10 font-display text-xl font-medium text-ink">Insurance accepted</h2>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {facility.insuranceAccepted.map((i) => (
+                    <li key={i} className="rounded-lg border border-line px-3 py-1.5 text-sm text-ink/70">
+                      {i}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <div className="mt-8 rounded-2xl border border-dashed border-line bg-mist p-6">
+                <p className="text-sm text-ink/70">
+                  Treatment types, insurance accepted, photos, and a full
+                  description become visible once this listing is claimed
+                  and upgraded to Premium.
+                </p>
+              </div>
+            )}
           </div>
 
           <aside className="lg:col-span-1">

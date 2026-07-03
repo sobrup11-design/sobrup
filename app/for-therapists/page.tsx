@@ -1,65 +1,64 @@
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
-import { PREMIUM_PLAN } from "@/lib/pricing";
-import { PROVIDER_FAQS } from "@/lib/faq";
+import { PlusCircle } from "lucide-react";
+import { THERAPIST_PLAN } from "@/lib/pricing";
+import { THERAPIST_FAQS } from "@/lib/faq";
 import FaqSection from "@/components/FaqSection";
 import PricingComparisonTable, { ComparisonRow } from "@/components/PricingComparisonTable";
 
 export const metadata = {
-  title: "Pricing for Treatment Providers",
-  description:
-    "One straightforward price to get verified, featured, and found by more people searching for treatment in California.",
+  title: "For Therapists",
+  description: "List your therapy practice on Sobrup and get found by people searching for care in California.",
 };
 
 const ROWS: ComparisonRow[] = [
-  { feature: "Name, address & phone shown", free: true, premium: true },
+  { feature: "Name, license type, phone & city shown", free: true, premium: true },
   { feature: "Claim and manage your listing", free: true, premium: true },
-  { feature: "Appears in search & category browsing", free: true, premium: true },
-  { feature: "Full description shown on profile", free: false, premium: true },
-  { feature: "Cover photo shown", free: false, premium: true },
+  { feature: "Appears in search & specialty browsing", free: true, premium: true },
+  { feature: "Bio shown on profile", free: false, premium: true },
+  { feature: "Photo shown", free: false, premium: true },
   { feature: "Website link shown", free: false, premium: true },
-  { feature: "Treatment types & insurance shown on profile", free: false, premium: true },
+  { feature: "Specialties shown on profile", free: false, premium: true },
+  { feature: "Insurance accepted shown on profile", free: false, premium: true },
   { feature: "Verified badge", free: false, premium: true },
-  { feature: "Featured placement across the site", free: false, premium: true },
-  { feature: "Priority placement in search results", free: false, premium: true },
+  { feature: "Featured placement in search", free: false, premium: true },
   { feature: "Unlimited profile edits", free: false, premium: true },
 ];
 
-export default function ForProvidersPage() {
+export default function ForTherapistsPage() {
   return (
     <div className="container-page py-16">
       <div className="max-w-2xl">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-pine-600 mb-2">
-          For providers
+          For therapists
         </p>
         <h1 className="font-display text-4xl font-medium text-ink leading-tight">
-          Get your facility found by people who need it
+          Get found by people looking for a therapist
         </h1>
         <p className="mt-4 text-ink/70">
-          Every facility gets a free listing automatically, with your name,
-          address, and phone visible right away. Claim it to keep it
-          accurate, or upgrade to Premium to unlock the rest of your profile.
+          List your practice for free — your name, license type, phone, and
+          city are visible right away. Upgrade to Premium to unlock the rest
+          of your profile.
         </p>
       </div>
 
       <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 rounded-2xl border border-pine-500 bg-pine-900 p-6 max-w-3xl">
         <div className="flex-1">
           <p className="font-display text-2xl font-medium text-canvas">
-            {PREMIUM_PLAN.name} — ${PREMIUM_PLAN.price}
+            {THERAPIST_PLAN.name} — ${THERAPIST_PLAN.price}
             <span className="text-base font-normal text-pine-100/70">/year</span>
           </p>
-          <p className="mt-1 text-sm text-pine-100/70">{PREMIUM_PLAN.tagline}</p>
+          <p className="mt-1 text-sm text-pine-100/70">{THERAPIST_PLAN.tagline}</p>
         </div>
         <div className="flex gap-3 shrink-0">
           <Link
-            href="/claim"
+            href="/list-your-practice"
             className="inline-flex items-center gap-2 rounded-xl border border-pine-400 px-5 py-3 text-sm font-semibold text-canvas hover:bg-pine-800 transition-colors"
           >
-            <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-            Claim free listing
+            <PlusCircle className="h-4 w-4" aria-hidden="true" />
+            List for free
           </Link>
           <Link
-            href={`/claim?plan=${PREMIUM_PLAN.id}`}
+            href={`/list-your-practice?plan=${THERAPIST_PLAN.id}`}
             className="inline-flex items-center justify-center rounded-xl bg-gold-500 px-5 py-3 text-sm font-semibold text-white hover:bg-gold-600 transition-colors"
           >
             Get Premium
@@ -72,12 +71,12 @@ export default function ForProvidersPage() {
       </div>
 
       <p className="mt-8 text-sm text-ink/50 max-w-2xl">
-        Online payment isn't connected yet — claiming your free listing is
-        instant today. We'll follow up by email to complete your Premium
-        upgrade once billing is live.
+        Online payment isn't connected yet — listing your practice is free
+        and instant today. We'll follow up by email to complete your
+        Premium upgrade once billing is live.
       </p>
 
-      <FaqSection items={PROVIDER_FAQS} />
+      <FaqSection items={THERAPIST_FAQS} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BadgeCheck, MapPin } from "lucide-react";
+import { BadgeCheck, MapPin, Phone } from "lucide-react";
 import { Facility } from "@/lib/types";
 
 export default function FacilityCard({ facility }: { facility: Facility }) {
@@ -39,21 +39,35 @@ export default function FacilityCard({ facility }: { facility: Facility }) {
 
         <p className="flex items-center gap-1 text-sm text-ink/60">
           <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-          {facility.city}, {facility.state}
+          {facility.address}, {facility.city}, {facility.state}
         </p>
 
-        <p className="text-sm text-ink/70 line-clamp-2">{facility.description}</p>
+        {facility.phone && (
+          <p className="flex items-center gap-1 text-sm text-ink/60">
+            <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+            {facility.phone}
+          </p>
+        )}
 
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {facility.treatmentTypes.slice(0, 2).map((t) => (
-            <span
-              key={t}
-              className="rounded-full bg-pine-50 px-2.5 py-1 text-xs font-medium text-pine-700"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
+        {facility.isPremium ? (
+          <>
+            <p className="text-sm text-ink/70 line-clamp-2">{facility.description}</p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {facility.treatmentTypes.slice(0, 2).map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full bg-pine-50 px-2.5 py-1 text-xs font-medium text-pine-700"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="mt-1 text-xs text-ink/40">
+            Full profile available once claimed &amp; upgraded
+          </p>
+        )}
       </div>
     </Link>
   );
